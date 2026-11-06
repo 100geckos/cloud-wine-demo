@@ -20,7 +20,8 @@ const photos = import.meta.glob<{ default: ImageMetadata }>(
 );
 const entry = brand.images.find((i) => i.id === id);
 if (!entry) throw new Error(`Unknown image: ${id}`);
-const photo = photos[`../assets/${entry.file}`]?.default;
+const filename = entry.file.split('/').at(-1);
+const photo = photos[`../assets/${filename}`]?.default;
 if (!photo) throw new Error(`Missing local image: ${entry.file}`);
 ---
 

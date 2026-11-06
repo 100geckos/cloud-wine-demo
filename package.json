@@ -18,6 +18,7 @@
     "dev:status": "astro dev status",
     "dev:stop": "astro dev stop",
     "dev:logs": "astro dev logs",
+    "editor:proxy": "node scripts/editor-proxy.mjs",
     "format": "prettier --write src scripts tests docs README.md astro.config.mjs wrangler.jsonc package.json tsconfig.json"
   },
   "dependencies": {
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
     "@types/node": "^26.6.6",
+    "decap-server": "3.11.6",
     "parse5": "^8.1.0",
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^1.1.2",

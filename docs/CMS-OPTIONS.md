@@ -1,6 +1,6 @@
 # Piedmont Digital: content editing path
 
-Recommendation: keep the public site static, then add a separate **Decap CMS editor** using file collections mapped to these JSON files. Validate content in CI and require a preview before publishing. This is an architecture recommendation, not an installed or authenticated CMS.
+The local **Decap CMS editor** is now installed with file collections mapped to the five JSON files. It writes through a loopback-only file proxy and has been tested with a save and restore. For hosted owner editing, add a scoped authentication service, content validation in CI, and a preview/review step before any public deployment. Hosted authentication is not configured yet.
 
 | Option    | Fit                                                                                | Operational tradeoff                                                                                                                                                                       |
 | --------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

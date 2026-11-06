@@ -33,6 +33,8 @@ When `SITE_URL` is unset, canonical and absolute social image URLs are omitted a
 
 No deployment or public route has been created as part of this implementation. Authentication is required before account integration. Do not enable automatic deployment just because the GitHub repository is connected.
 
+The static output also contains `/admin/`, but its CMS script runs only on localhost. The local editing proxy is a development tool and is never part of the Worker bundle. A hosted owner editor requires a separate, scoped GitHub authentication setup and a reviewed publishing flow; see [EDITOR.md](EDITOR.md).
+
 ## Optional Git integration later
 
 After approval, connect the correct repository in Workers Builds. Use `npm ci && npm run check && npm test && npm run build && npm run audit:build` as the build command and `npx wrangler deploy` as the deploy command. Store `SITE_URL` in the build environment. Set up a daily rebuild if using event dates and needing accurate no-JavaScript output. Do not activate it during the demo build.

@@ -21,11 +21,11 @@ export const businessSchema = z.object({
       status: z.enum(['verified', 'directory-listed']),
       source: safeLink,
     })
-    .nullable(),
-  email: z.email().nullable(),
-  hours: z.array(z.object({ day: z.string(), hours: z.string() })),
+    .nullish(),
+  email: z.union([z.email(), z.literal('')]).nullish(),
+  hours: z.array(z.object({ day: z.string(), hours: z.string() })).default([]),
   hoursNote: z.string(),
-  socials: z.array(z.object({ name: z.string(), url: safeLink })),
+  socials: z.array(z.object({ name: z.string(), url: safeLink })).default([]),
   verifiedOn: z.iso.date(),
   intro: z.string(),
   story: z.string(),
@@ -58,15 +58,17 @@ export const menuSchema = z.object({
       eyebrow: z.string(),
       description: z.string(),
       emptyMessage: z.string(),
-      items: z.array(
-        z.object({
-          name: z.string().min(1),
-          description: z.string().optional(),
-          price: z.number().nonnegative().optional(),
-          verified: z.boolean(),
-          source: safeLink,
-        }),
-      ),
+      items: z
+        .array(
+          z.object({
+            name: z.string().min(1),
+            description: z.string().nullish(),
+            price: z.number().nonnegative().nullish(),
+            verified: z.boolean(),
+            source: safeLink,
+          }),
+        )
+        .default([]),
     }),
   ),
 });
@@ -86,7 +88,7 @@ export const eventSchema = z
   );
 export const eventsSchema = z.object({
   note: z.string(),
-  events: z.array(eventSchema),
+  events: z.array(eventSchema).default([]),
 });
 export const brandSchema = z.object({
   agency: z.string(),
@@ -98,26 +100,39 @@ export const brandSchema = z.object({
     accent: z.string(),
     description: z.string(),
   }),
-  images: z.array(
-    z.object({
-      id: sourceId,
-      file: z.string().regex(/^[a-z0-9-]+\.(jpg|png|webp)$/),
-      alt: z.string(),
-      caption: z.string(),
-      photographer: z.string(),
-      source: safeLink,
-    }),
-  ),
+  images: z
+    .array(
+      z.object({
+        id: sourceId,
+        file: z
+          .string()
+          .regex(/^(\/src\/assets\/)?[a-z0-9-]+\.(jpg|png|webp)$/),
+        alt: z.string(),
+        caption: z.string(),
+        photographer: z.string(),
+        source: safeLink,
+      }),
+    )
+    .refine(
+      (images) =>
+        images.length === 3 &&
+        ['wine', 'bar', 'cocktail'].every(
+          (id) => images.filter((image) => image.id === id).length === 1,
+        ),
+      'Provide exactly one wine, bar, and cocktail image',
+    ),
 });
 export const announcementsSchema = z.object({
-  announcements: z.array(
-    z.object({
-      id: sourceId,
-      text: z.string(),
-      end: offsetDate,
-      verified: z.boolean(),
-    }),
-  ),
+  announcements: z
+    .array(
+      z.object({
+        id: sourceId,
+        text: z.string(),
+        end: offsetDate,
+        verified: z.boolean(),
+      }),
+    )
+    .default([]),
 });
 export type WineEvent = z.infer<typeof eventSchema>;
 export type MenuCategory = z.infer<typeof menuSchema>['categories'][number];

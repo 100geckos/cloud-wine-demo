@@ -16,7 +16,7 @@
   "images": [
     {
       "id": "wine",
-      "file": "wine.jpg",
+      "file": "/src/assets/wine.jpg",
       "alt": "Red wine being poured into stemmed glasses — illustrative stock photography",
       "caption": "The art of a good pour",
       "photographer": "Mauro Lima",
@@ -24,7 +24,7 @@
     },
     {
       "id": "bar",
-      "file": "bar.jpg",
+      "file": "/src/assets/bar.jpg",
       "alt": "A warmly lit bar with wooden stools — illustrative stock photography, not Cloud Wine’s interior",
       "caption": "A mood to linger in",
       "photographer": "Patrick Tomasso",
@@ -32,7 +32,7 @@
     },
     {
       "id": "cocktail",
-      "file": "cocktail.jpg",
+      "file": "/src/assets/cocktail.jpg",
       "alt": "An amber cocktail being poured over ice — illustrative stock photography",
       "caption": "A different kind of pour",
       "photographer": "Adam Jaime",

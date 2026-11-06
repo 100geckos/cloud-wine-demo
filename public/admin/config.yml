@@ -1,0 +1,356 @@
+# The local proxy overrides this backend only on localhost. Hosted login is
+# intentionally disabled by admin/index.html until a scoped OAuth service is set.
+backend:
+  name: github
+  repo: 100geckos/cloud-wine-demo
+  branch: main
+local_backend:
+  url: http://127.0.0.1:8081/api/v1
+publish_mode: simple
+media_folder: src/assets
+public_folder: /src/assets
+site_url: http://localhost:4321
+display_url: http://localhost:4321
+logo_url: /favicon.svg
+collections:
+  - name: site_content
+    label: Site content
+    description: Edit one section, save, then review the website preview before committing or publishing.
+    files:
+      - name: business
+        label: Business details
+        file: src/content/business.json
+        format: json
+        editor: { preview: false }
+        fields:
+          - { label: Business name, name: name, widget: string }
+          - { label: Location label, name: locationLabel, widget: string }
+          - label: Address
+            name: address
+            widget: object
+            fields:
+              - { label: Street, name: street, widget: string }
+              - { label: City, name: city, widget: string }
+              - { label: State, name: region, widget: string }
+              - { label: Country code, name: country, widget: string }
+          - {
+              label: Timezone,
+              name: timezone,
+              widget: string,
+              hint: 'IANA timezone, such as America/New_York.',
+            }
+          - label: Phone
+            name: phone
+            widget: object
+            required: false
+            fields:
+              - { label: Display number, name: display, widget: string }
+              - {
+                  label: Dial number,
+                  name: href,
+                  widget: string,
+                  hint: 'International format, such as +13366100420.',
+                }
+              - {
+                  label: Verification,
+                  name: status,
+                  widget: select,
+                  options: [verified, directory-listed],
+                }
+              - {
+                  label: Public source URL,
+                  name: source,
+                  widget: string,
+                  hint: 'HTTPS URL. Do not mark verified until the owner confirms it.',
+                }
+          - {
+              label: Email,
+              name: email,
+              widget: string,
+              required: false,
+              hint: 'Leave blank until the owner confirms a public email.',
+            }
+          - label: Hours
+            name: hours
+            widget: list
+            required: false
+            summary: '{{fields.day}} · {{fields.hours}}'
+            fields:
+              - {
+                  label: Day,
+                  name: day,
+                  widget: select,
+                  options:
+                    [
+                      Monday,
+                      Tuesday,
+                      Wednesday,
+                      Thursday,
+                      Friday,
+                      Saturday,
+                      Sunday,
+                    ],
+                }
+              - {
+                  label: Hours,
+                  name: hours,
+                  widget: string,
+                  hint: 'Use Closed or confirmed opening and closing times.',
+                }
+          - { label: Hours note, name: hoursNote, widget: text }
+          - label: Social links
+            name: socials
+            widget: list
+            required: false
+            summary: '{{fields.name}}'
+            fields:
+              - { label: Network, name: name, widget: string }
+              - { label: HTTPS URL, name: url, widget: string }
+          - {
+              label: Information verified on,
+              name: verifiedOn,
+              widget: datetime,
+              format: 'YYYY-MM-DD',
+              picker_utc: true,
+              hint: 'Update only when facts were rechecked.',
+            }
+          - { label: Introduction, name: intro, widget: text }
+          - { label: Story, name: story, widget: text }
+          - {
+              label: Research and affiliation note,
+              name: storyNote,
+              widget: text,
+            }
+          - label: Offering cards
+            name: offerings
+            widget: list
+            summary: '{{fields.title}}'
+            fields:
+              - { label: ID, name: id, widget: string }
+              - { label: Display number, name: number, widget: string }
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: text }
+              - { label: Detail, name: detail, widget: text }
+              - {
+                  label: Source ID,
+                  name: source,
+                  widget: string,
+                  hint: 'Must match a source ID below.',
+                }
+          - label: Research sources
+            name: sources
+            widget: list
+            summary: '{{fields.label}}'
+            fields:
+              - { label: ID, name: id, widget: string }
+              - { label: Label, name: label, widget: string }
+              - { label: HTTPS URL, name: url, widget: string }
+              - { label: What it confirms, name: details, widget: text }
+
+      - name: menu
+        label: Menu
+        file: src/content/menu.json
+        format: json
+        editor: { preview: false }
+        fields:
+          - { label: Menu note, name: note, widget: text }
+          - label: Categories and items
+            name: categories
+            widget: list
+            min: 3
+            max: 3
+            summary: '{{fields.name}}'
+            hint: 'Keep the wine, cocktails, and bites categories. Add only owner-confirmed items.'
+            fields:
+              - {
+                  label: ID,
+                  name: id,
+                  widget: select,
+                  options: [wine, cocktails, bites],
+                }
+              - { label: Name, name: name, widget: string }
+              - { label: Eyebrow, name: eyebrow, widget: string }
+              - { label: Description, name: description, widget: text }
+              - { label: Empty message, name: emptyMessage, widget: string }
+              - label: Items
+                name: items
+                widget: list
+                required: false
+                summary: '{{fields.name}}'
+                fields:
+                  - { label: Name, name: name, widget: string }
+                  - {
+                      label: Description,
+                      name: description,
+                      widget: text,
+                      required: false,
+                    }
+                  - {
+                      label: Price in USD,
+                      name: price,
+                      widget: number,
+                      value_type: float,
+                      min: 0,
+                      step: 0.01,
+                      required: false,
+                      hint: 'Leave blank until confirmed; use a number without a dollar sign.',
+                    }
+                  - {
+                      label: Verified,
+                      name: verified,
+                      widget: boolean,
+                      default: false,
+                      hint: 'Only confirmed items are displayed.',
+                    }
+                  - { label: Public HTTPS source, name: source, widget: string }
+
+      - name: events
+        label: Events
+        file: src/content/events.json
+        format: json
+        editor: { preview: false }
+        fields:
+          - { label: No-events note, name: note, widget: text }
+          - label: Upcoming events
+            name: events
+            widget: list
+            required: false
+            summary: '{{fields.title}} · {{fields.start}}'
+            fields:
+              - {
+                  label: ID,
+                  name: id,
+                  widget: string,
+                  hint: 'Unique lowercase words joined by hyphens.',
+                }
+              - { label: Title, name: title, widget: string }
+              - { label: Description, name: description, widget: text }
+              - {
+                  label: Starts,
+                  name: start,
+                  widget: string,
+                  hint: 'YYYY-MM-DDTHH:mm:ss-05:00 or -04:00. Confirm Eastern offset for the date.',
+                }
+              - {
+                  label: Ends,
+                  name: end,
+                  widget: string,
+                  hint: 'Same format; must follow the start.',
+                }
+              - {
+                  label: Verified,
+                  name: verified,
+                  widget: boolean,
+                  default: false,
+                }
+              - { label: Public HTTPS source, name: source, widget: string }
+
+      - name: announcements
+        label: Notices
+        file: src/content/announcements.json
+        format: json
+        editor: { preview: false }
+        fields:
+          - label: Homepage notices
+            name: announcements
+            widget: list
+            required: false
+            summary: '{{fields.text}}'
+            fields:
+              - {
+                  label: ID,
+                  name: id,
+                  widget: string,
+                  hint: 'Unique lowercase words joined by hyphens.',
+                }
+              - { label: Text, name: text, widget: text }
+              - {
+                  label: Expires,
+                  name: end,
+                  widget: string,
+                  hint: 'Full date and time with Eastern offset, such as YYYY-MM-DDTHH:mm:ss-05:00.',
+                }
+              - {
+                  label: Verified,
+                  name: verified,
+                  widget: boolean,
+                  default: false,
+                }
+
+      - name: brand
+        label: Brand and photography
+        file: src/content/brand.json
+        format: json
+        editor: { preview: false }
+        fields:
+          - {
+              label: Agency,
+              name: agency,
+              widget: hidden,
+              default: 'Piedmont Digital',
+            }
+          - {
+              label: Unofficial demo,
+              name: demo,
+              widget: hidden,
+              default: true,
+            }
+          - label: Colors
+            name: colors
+            widget: object
+            fields:
+              - { label: Ivory, name: ivory, widget: color, allowInput: true }
+              - { label: Ink, name: ink, widget: color, allowInput: true }
+              - {
+                  label: Burgundy,
+                  name: burgundy,
+                  widget: color,
+                  allowInput: true,
+                }
+              - { label: Gold, name: gold, widget: color, allowInput: true }
+          - label: Homepage hero
+            name: hero
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string }
+              - { label: Headline, name: title, widget: string }
+              - { label: Accent headline, name: accent, widget: string }
+              - { label: Description, name: description, widget: text }
+          - label: Photography
+            name: images
+            widget: list
+            min: 3
+            max: 3
+            summary: '{{fields.id}} · {{fields.caption}}'
+            hint: 'Keep wine, bar, and cocktail IDs. Upload only licensed/owner-approved JPG, PNG, or WebP images.'
+            fields:
+              - {
+                  label: Image ID,
+                  name: id,
+                  widget: select,
+                  options: [wine, bar, cocktail],
+                }
+              - label: Image file
+                name: file
+                widget: image
+                choose_url: false
+                media_library:
+                  config:
+                    max_file_size: 5000000
+              - {
+                  label: Accessible description,
+                  name: alt,
+                  widget: text,
+                  hint: 'Describe the actual image. State if it is illustrative stock.',
+                }
+              - { label: Caption, name: caption, widget: string }
+              - {
+                  label: Photographer or owner,
+                  name: photographer,
+                  widget: string,
+                }
+              - {
+                  label: License/permission source URL,
+                  name: source,
+                  widget: string,
+                }

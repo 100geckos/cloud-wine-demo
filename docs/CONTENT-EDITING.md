@@ -1,6 +1,6 @@
 # Updating the Cloud Wine preview
 
-Business information lives in `src/content/`. Page templates are in `src/pages/`; you do not need to edit them to update the content below. These are plain JSON files: use double quotes, put commas between entries, and do not put a comma after the final entry. Keep a copy or use Git's undo before changing anything.
+Business information lives in `src/content/`. For form-based editing, use the [local Decap editor](EDITOR.md). Page templates are in `src/pages/`; you do not need to edit them to update the content below. These are plain JSON files: if editing them directly, use double quotes, put commas between entries, and do not put a comma after the final entry. Keep a copy or use Git's undo before changing anything.
 
 | What to update                            | File                 | Field                      |
 | ----------------------------------------- | -------------------- | -------------------------- |
@@ -40,6 +40,6 @@ Add `id`, `text`, `end` (ISO timestamp with offset), and `verified`. Confirmed, 
 
 ## Photos
 
-Put a licensed JPG, PNG, or WebP in `src/assets/`, then change the corresponding `file`, `alt`, `caption`, `photographer`, and `source` values in `brand.json`. Keep the logical image `id` (`wine`, `bar`, or `cocktail`) so the current layouts keep working. Astro creates responsive WebP files during the build. Preserve photo rights/credits. Replace the stock-photo notices only after owner-approved premises photographs are actually supplied.
+Upload a licensed JPG, PNG, or WebP through the editor or put it in `src/assets/`, then change the corresponding `file`, `alt`, `caption`, `photographer`, and `source` values in `brand.json`. The editor writes `file` as `/src/assets/filename.jpg`; a manually edited basename also works. Keep the logical image `id` (`wine`, `bar`, or `cocktail`) so the current layouts keep working. Astro creates responsive WebP files during the build. Preserve photo rights/credits. Replace the stock-photo notices only after owner-approved premises photographs are actually supplied.
 
-This first version uses structured files, not a hosted editor. A nontechnical editing UI is the next integration; see `CMS-OPTIONS.md`.
+The local editor is installed. A hosted owner login is a separate authentication and deployment step; see `EDITOR.md` and `CMS-OPTIONS.md`.

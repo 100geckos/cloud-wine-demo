@@ -17,6 +17,7 @@ Open **http://localhost:4321/**. The dev script runs `astro dev --background` as
 - Responsive navigation, mobile menu, menu-category filters with deep links, accessible gallery dialog, external directions and social links, click-to-call.
 - Verified offering categories; confirmation states for menu items, hours, and future events. Directory-listed phone is explicitly qualified.
 - Typed reusable Astro components, JSON business content, Zod validation, event expiry handling at build time and in the browser.
+- Local Decap content editor for business details, menu, events, notices, brand copy and licensed image uploads. See [editor instructions](docs/EDITOR.md).
 - Responsive optimized local WebP images; self-hosted Cormorant Garamond and DM Sans fonts; small vanilla-JavaScript interactions.
 - Unique page metadata, structured data, configurable canonical/Open Graph URLs, sitemap, robots, and demo noindex headers.
 - Cloudflare Workers static-assets configuration and dry-run packaging. Default public Workers URLs and version preview URLs are disabled; no DNS or Gecloid infrastructure is involved.
@@ -51,6 +52,7 @@ The unit tests cover date boundaries, timezone offsets, content validation, and 
 ## Editing, research and deployment
 
 - [Content editing guide](docs/CONTENT-EDITING.md)
+- [Local content editor](docs/EDITOR.md)
 - [Research and owner information needed](docs/RESEARCH.md)
 - [Cloudflare deployment and environment variables](docs/DEPLOYMENT.md)
 - [CMS options and reusable platform recommendation](docs/CMS-OPTIONS.md)
@@ -58,6 +60,6 @@ The unit tests cover date boundaries, timezone offsets, content validation, and 
 
 Set optional `SITE_URL` to an approved HTTPS origin you control when deployment is authorized; see `.env.example`. It is not needed locally. Without it, no guessed canonical domain is emitted and the sitemap is empty. The demo remains excluded from indexing even when configured.
 
-Future content editing recommendation: a separate Decap CMS editor backed by Git, using these content files and scoped authorization. The initial version has structured-file editing only. No paid CMS or Supabase has been introduced.
+The local Decap editor writes these structured files through a loopback-only proxy. Run `npm run editor:proxy` beside the background Astro server, then open http://localhost:4321/admin/. Hosted editing still needs scoped GitHub authentication; the public admin page stays inactive until that is configured. No paid CMS or Supabase has been introduced.
 
 Publishing requires explicit approval. `npm run deploy:check` is safe packaging verification; `npm run deploy` uploads to Cloudflare. Do not enable routes, Workers URLs, automatic deployments, or DNS changes without approval.

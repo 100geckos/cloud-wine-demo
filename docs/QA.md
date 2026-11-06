@@ -4,12 +4,12 @@ Verified November 5, 2026. This records a local demonstration build, not product
 
 ## Automated checks
 
-- Dependency install: succeeded. npm reported zero known dependency vulnerabilities at installation time.
+- Dependency install: succeeded. `npm audit --omit=dev` reports zero production dependency advisories. The local-only `decap-server` development dependency currently brings four high advisories through `@decap/cli` (`@hapi/joi` and an older nested Zod); keep the proxy bound to loopback and stop it when not editing. No critical advisories were reported for the installed version.
 - `npm run check`: zero errors, warnings, or hints.
 - `npm test`: four tests pass: all JSON schemas; event verification/expiry/sort; exact end boundary and daylight saving offsets; invalid event/link rejection.
-- `npm run build`: seven static HTML pages plus robots.txt, sitemap.xml, optimized photos, local fonts, CSS, and minimal interaction scripts.
-- `npm run audit:build`: all 138 local link/asset references resolved, including anchors. Checks unique titles, descriptions, single H1, main landmarks, no duplicate IDs, image alt/dimensions, noindex, valid JSON-LD. This is a focused static check, not a full accessibility certification.
-- `npm run deploy:check`: Wrangler static-assets dry run succeeds. No upload, bindings, Worker account integration, or public URL was created.
+- `npm run build`: seven Astro HTML pages plus the static admin page, robots.txt, sitemap.xml, optimized photos, local fonts, CSS, and minimal site interactions.
+- `npm run audit:build`: all 139 local link/asset references resolved across eight HTML pages, including anchors. Checks unique titles, descriptions, single H1, main landmarks, no duplicate IDs, image alt/dimensions, noindex, valid JSON-LD. This is a focused static check, not a full accessibility certification.
+- `npm run deploy:check`: Wrangler static-assets dry run succeeds with 45 asset files. No upload, bindings, Worker account integration, or public URL was created.
 - Configured-domain build checked with a temporary `https://preview.example` value: canonical and Open Graph image URLs are emitted and the sitemap contains five URLs. Default domain-free output was then rebuilt and revalidated.
 
 Windows filesystem sandboxing blocked Astro's `realpath` on `public/` and Wrangler's default log directory. The production build and packaging check succeeded in an authorized normal terminal. Dependency downloads likewise needed permitted network access.
@@ -31,7 +31,7 @@ The full build is about 1.5 MiB across all pages and responsive asset variants; 
 
 ## Intentional limitations
 
-- No CMS admin is installed; structured file editing and a handoff guide are provided.
+- The local Decap editor loads all five content sections. A menu edit was saved through the UI, verified in JSON, and restored. Hosted GitHub login remains disabled pending scoped authentication. The editor bundle is loaded from pinned jsDelivr Decap 3.17.3 and needs internet access.
 - Calendar expiry works in the browser; no-JavaScript static copies need rebuilding after dates expire. No scheduled deployment has been activated.
 - `SITE_URL` must be configured before useful absolute canonical, social-image URLs, and sitemap entries are generated. Demo noindex remains on.
 - Cloudflare is unauthenticated and public routes are disabled.
