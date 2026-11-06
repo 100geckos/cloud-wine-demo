@@ -1,0 +1,99 @@
+---
+import Brand from './Brand.astro';
+import Icon from './Icon.astro';
+import { navigation, directionsUrl, brand } from '../lib/content';
+const path = Astro.url.pathname;
+---
+
+<div class="demo-bar">
+  Unofficial design concept <span aria-hidden="true">·</span> Created by{' '}
+  {brand.agency}
+  <a href="/preview-notes/">
+    About this preview <span aria-hidden="true">↗</span>
+  </a>
+</div>
+<header class="site-header">
+  <div class="shell header-inner">
+    <Brand />
+    <button
+      class="nav-toggle"
+      aria-expanded="false"
+      aria-controls="main-navigation"
+    >
+      <span>Explore</span>
+      <span class="hamburger" aria-hidden="true">
+        <i></i>
+        <i></i>
+      </span>
+    </button>
+    <nav id="main-navigation" aria-label="Main navigation">
+      {navigation.map(({ label, href }) => (
+        <a href={href} aria-current={path === href ? 'page' : undefined}>
+          {label}
+        </a>
+      ))}
+      <a
+        class="button button-small"
+        href={directionsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Get directions <Icon />
+      </a>
+    </nav>
+  </div>
+</header>
+<noscript>
+  <style is:inline>
+    @media (max-width: 959px) {
+      .header-inner {
+        flex-wrap: wrap;
+        padding-block: 20px;
+      }
+      .nav-toggle {
+        display: none;
+      }
+      #main-navigation {
+        position: static;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        padding: 0;
+        border: 0;
+        gap: 12px 20px;
+      }
+      #main-navigation > a:not(.button) {
+        padding: 8px 0;
+      }
+      #main-navigation > .button {
+        margin-top: 0;
+      }
+    }
+  </style>
+</noscript>
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+  const nav = document.querySelector<HTMLElement>('#main-navigation');
+  const setOpen = (open: boolean) => {
+    toggle?.setAttribute('aria-expanded', String(open));
+    nav?.classList.toggle('is-open', open);
+  };
+  toggle?.addEventListener('click', () =>
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true'),
+  );
+  document.addEventListener('keydown', (event) => {
+    if (
+      event.key === 'Escape' &&
+      toggle?.getAttribute('aria-expanded') === 'true'
+    ) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  nav
+    ?.querySelectorAll('a')
+    .forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  matchMedia('(min-width: 960px)').addEventListener('change', () =>
+    setOpen(false),
+  );
+</script>

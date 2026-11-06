@@ -1,0 +1,55 @@
+---
+import Photo from './Photo.astro';
+import Icon from './Icon.astro';
+import { brand, business, directionsUrl } from '../lib/content';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <Photo id="wine" class="hero-photo" priority sizes="100vw" />
+  <div class="hero-shade"></div>
+  <div class="shell hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow">
+        <span class="short-rule"></span>
+        {brand.hero.eyebrow}
+      </p>
+      <h1 id="hero-title">
+        {brand.hero.title}
+        <br />
+        <em>{brand.hero.accent}</em>
+      </h1>
+      <p class="hero-description">{brand.hero.description}</p>
+      <div class="hero-actions">
+        <a class="button button-ivory" href="/menu/">
+          Explore the menu <Icon />
+        </a>
+        <a
+          class="hero-secondary"
+          href={directionsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Find us downtown <Icon name="pin" />
+        </a>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <p>{business.locationLabel}</p>
+      <p class="photo-disclosure">
+        Illustrative stock photography{' '}
+        <a
+          href="/preview-notes/#photography"
+          aria-label="About the photography"
+        >
+          ⓘ
+        </a>
+      </p>
+      <a href="#welcome" aria-label="Discover Cloud Wine">
+        <span aria-hidden="true">↓</span>
+      </a>
+    </div>
+  </div>
+  <span class="hero-side" aria-hidden="true">
+    WINE · CONVERSATION · CONNECTION
+  </span>
+</section>

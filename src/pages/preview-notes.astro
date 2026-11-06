@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { business, brand } from '../lib/content';
+---
+
+<Layout
+  title="About this preview"
+  description="Research sources, photo credits, and content verification notes for Piedmont Digital’s unofficial Cloud Wine website concept."
+>
+  <PageIntro
+    eyebrow="Transparency & credits"
+    title="A concept with"
+    accent="clear intentions."
+    description="An independent website demonstration by Piedmont Digital. Not an official Cloud Wine website."
+  />
+  <div class="shell notes-content section-pad">
+    <section>
+      <h2>About the demonstration</h2>
+      <p>
+        This is an unsolicited design concept, with no business relationship,
+        authorization, or endorsement implied. The visual identity, wordmark,
+        and editorial copy are proposed creative direction, not the business’s
+        approved branding.
+      </p>
+      <p>
+        Public research checked {business.verifiedOn}. This preview is marked
+        noindex, nofollow. No customer data, payments, reservations, or messages
+        are collected.
+      </p>
+    </section>
+    <section>
+      <h2>What we could verify</h2>
+      {business.sources.map((s) => (
+        <article class="source-item">
+          <h3>
+            <a href={s.url} target="_blank" rel="noopener noreferrer">
+              {s.label} ↗
+            </a>
+          </h3>
+          <p>{s.details}</p>
+        </article>
+      ))}
+    </section>
+    <section>
+      <h2>What remains unconfirmed</h2>
+      <ul>
+        <li>Current operating hours: public listings conflict.</li>
+        <li>The directory-listed telephone number needs owner confirmation.</li>
+        <li>Current menu items, prices, allergens, and availability.</li>
+        <li>Upcoming event dates. No invented dates appear in this demo.</li>
+        <li>Email and Instagram account. These have been omitted.</li>
+        <li>Owner-approved logo, photography, story, and brand colors.</li>
+      </ul>
+      <p>
+        The Facebook profile is linked by the downtown business directory. Its
+        posts could not be independently inspected during this research.
+      </p>
+    </section>
+    <section id="photography">
+      <h2>Photography & typography</h2>
+      <p>
+        All photography is illustrative stock. None depicts Cloud Wine’s
+        premises or confirms any particular drink or menu item. Photos are used
+        under the{' '}
+        <a
+          href="https://unsplash.com/license"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Unsplash License
+        </a>
+        .
+      </p>
+      {brand.images.map((i) => (
+        <article class="source-item">
+          <h3>{i.caption}</h3>
+          <p>
+            <a href={i.source} target="_blank" rel="noopener noreferrer">
+              Photo by {i.photographer} on Unsplash ↗
+            </a>
+          </p>
+        </article>
+      ))}
+      <p>
+        Cormorant Garamond and DM Sans are self-hosted through Fontsource under
+        the SIL Open Font License. Font licenses are included with their
+        packages.
+      </p>
+    </section>
+  </div>
+</Layout>

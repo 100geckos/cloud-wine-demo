@@ -1,0 +1,60 @@
+---
+import { events, eventContent, socialUrl } from '../lib/content';
+import EventCard from './EventCard.astro';
+import Icon from './Icon.astro';
+interface Props {
+  full?: boolean;
+}
+const { full = false } = Astro.props;
+const visible = full ? events : events.slice(0, 3);
+---
+
+<div data-events>
+  <div data-event-list>
+    {visible.map((event) => (
+      <EventCard event={event} />
+    ))}
+  </div>
+  <div class="event-empty" data-events-empty hidden={visible.length > 0}>
+    <span class="eyebrow">From the neighborhood</span>
+    <h3>
+      Good things
+      <br />
+      <em>are worth a date.</em>
+    </h3>
+    <p>{eventContent.note}</p>
+    {socialUrl && (
+      <a
+        class="button button-ivory"
+        href={socialUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Follow Cloud Wine <Icon />
+      </a>
+    )}
+  </div>
+</div>
+<script>
+  import { eventIsPast } from '../lib/events';
+  const refreshEvents = () =>
+    document
+      .querySelectorAll<HTMLElement>('[data-events]')
+      .forEach((container) => {
+        container
+          .querySelectorAll<HTMLElement>('[data-event-end]')
+          .forEach((card) => {
+            card.hidden = eventIsPast(card.dataset.eventEnd!);
+          });
+        const empty = container.querySelector<HTMLElement>(
+          '[data-events-empty]',
+        );
+        if (empty)
+          empty.hidden = [
+            ...container.querySelectorAll<HTMLElement>('[data-event-end]'),
+          ].some((card) => !card.hidden);
+      });
+  refreshEvents();
+  setInterval(refreshEvents, 30000);
+  document.addEventListener('visibilitychange', refreshEvents);
+</script>

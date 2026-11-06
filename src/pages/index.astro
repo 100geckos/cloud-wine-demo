@@ -1,0 +1,128 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Gallery from '../components/Gallery.astro';
+import EventsPreview from '../components/EventsPreview.astro';
+import ContactSection from '../components/ContactSection.astro';
+import Photo from '../components/Photo.astro';
+import Icon from '../components/Icon.astro';
+import { business, announcements } from '../lib/content';
+---
+
+<Layout
+  title="Good wine. Better company."
+  description="Explore an independent website concept for Cloud Wine in downtown Asheboro, NC. Publicly listed offerings, visit information, and verified updates."
+>
+  <Hero />
+  <div class="identity-strip">
+    <span>WINE</span>
+    <Icon name="star" />
+    <span>CRAFT BEER</span>
+    <Icon name="star" />
+    <span>COCKTAILS</span>
+    <Icon name="star" />
+    <span>SMALL BITES</span>
+  </div>
+  {announcements.map((a) => (
+    <aside class="shell announcement" data-announcement-end={a.end}>
+      {a.text}
+    </aside>
+  ))}
+  <section id="welcome" class="section-pad">
+    <div class="shell welcome-grid">
+      <div class="welcome-photo">
+        <Photo id="bar" />
+        <span class="image-label">Illustrative atmosphere</span>
+        <div class="round-seal" aria-hidden="true">
+          <Icon name="glass" />
+          <span>
+            SIP. SAVOR.
+            <br />
+            STAY AWHILE.
+          </span>
+        </div>
+      </div>
+      <div class="welcome-copy">
+        <p class="eyebrow">A downtown kind of evening</p>
+        <h2>
+          A little escape.
+          <br />
+          Right <em>here.</em>
+        </h2>
+        <p class="large-copy">{business.intro}</p>
+        <p>
+          For the catch-up that’s overdue. The evening with no agenda. The
+          simple pleasure of good company.
+        </p>
+        <a class="text-link" href="/about/">
+          Get to know Cloud Wine <Icon />
+        </a>
+        <div class="location-detail">
+          <Icon name="pin" />
+          <span>
+            {business.address.street}
+            <br />
+            Downtown Asheboro, NC
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="offerings-section section-pad">
+    <div class="shell">
+      <div class="heading-row">
+        <SectionHeading
+          eyebrow="Find your favorite"
+          title="A pour for your kind of evening."
+        />
+        <a class="text-link" href="/menu/">
+          Explore the menu <Icon />
+        </a>
+      </div>
+      <div class="offerings-grid">
+        {business.offerings.map((offering) => (
+          <ServiceCard offering={offering} />
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section-pad gallery-section">
+    <div class="shell">
+      <div class="heading-row">
+        <SectionHeading
+          eyebrow="Set the mood"
+          title="Less rush. More room to linger."
+        />
+        <p class="heading-aside">
+          An invitation to slow down
+          <br />
+          and enjoy the little things.
+        </p>
+      </div>
+      <Gallery />
+    </div>
+  </section>
+  <section class="events-section">
+    <div class="shell events-grid">
+      <div class="events-heading">
+        <p class="eyebrow">On the calendar</p>
+        <h2>
+          Evenings
+          <br />
+          to <em>look forward to.</em>
+        </h2>
+        <p>Find the latest announcements and upcoming dates from Cloud Wine.</p>
+        <a class="text-link" href="/events/">
+          See what’s on <Icon />
+        </a>
+        <span class="decor-star" aria-hidden="true">
+          ✳
+        </span>
+      </div>
+      <EventsPreview />
+    </div>
+  </section>
+  <ContactSection />
+</Layout>

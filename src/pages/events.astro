@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import EventsPreview from '../components/EventsPreview.astro';
+import ContactSection from '../components/ContactSection.astro';
+---
+
+<Layout
+  title="What’s on"
+  description="Upcoming dates and announcements for Cloud Wine in Asheboro. No future events have been verified for this unofficial website preview."
+>
+  <PageIntro
+    eyebrow="What’s on at Cloud Wine"
+    title="A reason to"
+    accent="get together."
+    description="A place for upcoming dates, shared moments, and something to look forward to."
+  />
+  <section class="events-section events-full">
+    <div class="shell">
+      <h2 class="events-list-title">Upcoming events</h2>
+      <EventsPreview full />
+    </div>
+  </section>
+  <section class="shell section-pad narrow-copy">
+    <p class="eyebrow">A note on the calendar</p>
+    <h2>Real plans. Real dates.</h2>
+    <p>
+      Only confirmed, sourced events appear here. Past events disappear
+      automatically. For the most current information, check the business’s
+      social page before heading out.
+    </p>
+  </section>
+  <ContactSection />
+</Layout>

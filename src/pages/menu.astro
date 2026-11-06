@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import MenuSection from '../components/MenuSection.astro';
+import CallToAction from '../components/CallToAction.astro';
+import Photo from '../components/Photo.astro';
+import { menu } from '../lib/content';
+---
+
+<Layout
+  title="The menu"
+  description="Explore Cloud Wine’s publicly reported wine, craft beer, cocktails, and small bites. Current items and prices await owner confirmation in this independent preview."
+>
+  <PageIntro
+    eyebrow="Wine · cocktails · small bites"
+    title="Find your"
+    accent="kind of pour."
+    description="A glass to start the conversation. A bite to keep it going."
+  />
+  <div class="menu-banner shell">
+    <Photo id="cocktail" sizes="100vw" />
+    <span class="image-label">Illustrative stock photography</span>
+  </div>
+  <div class="shell menu-content section-pad">
+    <p class="content-notice">{menu.note}</p>
+    <nav class="menu-filter" aria-label="Menu categories">
+      <button data-menu-filter="all" aria-pressed="true">
+        All offerings
+      </button>
+      {menu.categories.map((c) => (
+        <button data-menu-filter={c.id} aria-pressed="false">
+          {c.name}
+        </button>
+      ))}
+    </nav>
+    <p class="sr-only" aria-live="polite" id="filter-status"></p>
+    {menu.categories.map((category) => (
+      <MenuSection category={category} />
+    ))}
+  </div>
+  <CallToAction />
+</Layout>
+<script>
+  const buttons =
+    document.querySelectorAll<HTMLButtonElement>('[data-menu-filter]');
+  const sections = document.querySelectorAll<HTMLElement>(
+    '[data-menu-category]',
+  );
+  function applyFilter(filter: string) {
+    const valid =
+      filter === 'all' || [...sections].some((s) => s.id === filter);
+    if (!valid) return;
+    buttons.forEach((b) =>
+      b.setAttribute('aria-pressed', String(b.dataset.menuFilter === filter)),
+    );
+    sections.forEach((s) => {
+      s.hidden = filter !== 'all' && s.id !== filter;
+    });
+    const status = document.querySelector('#filter-status');
+    if (status)
+      status.textContent = `${filter === 'all' ? 'All offerings' : [...buttons].find((b) => b.dataset.menuFilter === filter)?.textContent} shown.`;
+  }
+  buttons.forEach((b) =>
+    b.addEventListener('click', () => {
+      const filter = b.dataset.menuFilter!;
+      applyFilter(filter);
+      history.replaceState(
+        null,
+        '',
+        filter === 'all' ? location.pathname : `#${filter}`,
+      );
+    }),
+  );
+  const fromHash = () => applyFilter(location.hash.slice(1) || 'all');
+  fromHash();
+  window.addEventListener('hashchange', fromHash);
+</script>

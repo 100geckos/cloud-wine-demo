@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import Gallery from '../components/Gallery.astro';
+import Photo from '../components/Photo.astro';
+import CallToAction from '../components/CallToAction.astro';
+import { business } from '../lib/content';
+---
+
+<Layout
+  title="Our story"
+  description="Get to know Cloud Wine on North Fayetteville Street in downtown Asheboro through verified public information and an independent design concept by Piedmont Digital."
+>
+  <PageIntro
+    eyebrow="A spot in the neighborhood"
+    title="Rooted downtown."
+    accent="Made for connection."
+    description="Wine, conversation, and a little time well spent in Asheboro."
+  />
+  <section class="shell about-grid section-pad">
+    <Photo id="bar" />
+    <div>
+      <p class="eyebrow">North Fayetteville Street</p>
+      <h2>
+        A new chapter
+        <br />
+        in <em>downtown Asheboro.</em>
+      </h2>
+      <p class="large-copy">{business.story}</p>
+      <p>{business.storyNote}</p>
+      <a class="text-link" href="/preview-notes/">
+        Read our research notes <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
+  <section class="shell section-pad">
+    <div class="heading-row">
+      <div>
+        <p class="eyebrow">The feeling, imagined</p>
+        <h2>An evening with room to breathe.</h2>
+      </div>
+    </div>
+    <Gallery />
+  </section>
+  <CallToAction />
+</Layout>

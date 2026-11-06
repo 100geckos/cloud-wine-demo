@@ -1,0 +1,69 @@
+---
+import Photo from './Photo.astro';
+import Icon from './Icon.astro';
+import { brand } from '../lib/content';
+---
+
+<div class="gallery-grid">
+  {['bar', 'wine', 'cocktail'].map((id, index) => {
+    const item = brand.images.find((i) => i.id === id)!;
+    return (
+      <figure class={`gallery-item gallery-item-${index}`}>
+        <button class="gallery-trigger" aria-label={`Enlarge: ${item.caption}`}>
+          <Photo
+            id={id}
+            sizes={
+              index === 0
+                ? '(min-width:960px) 45vw, 100vw'
+                : '(min-width:960px) 25vw, 50vw'
+            }
+          />
+          <span class="gallery-plus" aria-hidden="true">
+            +
+          </span>
+        </button>
+        <figcaption>
+          <span>0{index + 1}</span>
+          <span data-photo-caption>{item.caption}</span>
+        </figcaption>
+      </figure>
+    );
+  })}
+</div>
+<p class="gallery-note">
+  A visual moodboard for this concept. Stock images do not depict Cloud Wine,
+  its drinks, or its interior.{' '}
+  <a href="/preview-notes/#photography">Photo credits ↗</a>
+</p>
+<dialog class="gallery-dialog" aria-labelledby="gallery-caption">
+  <form method="dialog">
+    <button class="dialog-close" aria-label="Close photo">
+      <Icon name="close" />
+    </button>
+  </form>
+  <div data-gallery-image></div>
+  <p id="gallery-caption"></p>
+</dialog>
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('.gallery-dialog');
+  const imageHost = document.querySelector<HTMLElement>('[data-gallery-image]');
+  let origin: HTMLButtonElement | undefined;
+  document
+    .querySelectorAll<HTMLButtonElement>('.gallery-trigger')
+    .forEach((button) =>
+      button.addEventListener('click', () => {
+        const original = button.querySelector('img');
+        if (!original || !dialog || !imageHost) return;
+        origin = button;
+        imageHost.replaceChildren(original.cloneNode(true));
+        const caption = document.querySelector('#gallery-caption');
+        if (caption)
+          caption.textContent = `${button.closest('figure')?.querySelector('[data-photo-caption]')?.textContent} — illustrative stock photo; not Cloud Wine.`;
+        dialog.showModal();
+      }),
+    );
+  dialog?.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+  dialog?.addEventListener('close', () => origin?.focus());
+</script>

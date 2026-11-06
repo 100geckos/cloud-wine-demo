@@ -1,0 +1,107 @@
+---
+import '../styles/global.css';
+import '@fontsource/cormorant-garamond/latin-400.css';
+import '@fontsource/cormorant-garamond/latin-400-italic.css';
+import '@fontsource/cormorant-garamond/latin-500.css';
+import '@fontsource/dm-sans/latin-400.css';
+import '@fontsource/dm-sans/latin-500.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { brand, business } from '../lib/content';
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site)
+  : undefined;
+const pageTitle = `${title} | ${business.name} · Unofficial concept`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: pageTitle,
+  description,
+  ...(canonical ? { url: canonical.href } : {}),
+  about: {
+    '@type': 'BarOrPub',
+    name: business.name,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: business.address.street,
+      addressLocality: business.address.city,
+      addressRegion: business.address.region,
+      addressCountry: business.address.country,
+    },
+  },
+  creator: { '@type': 'Organization', name: brand.agency },
+};
+---
+
+<!doctype html>
+<html
+  lang="en"
+  style={Object.entries(brand.colors)
+    .map(([key, value]) => `--${key}:${value}`)
+    .join(';')}
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content={brand.colors.burgundy} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta
+      property="og:site_name"
+      content={`${business.name} — independent preview`}
+    />
+    <meta property="og:locale" content="en_US" />
+    {Astro.site && (
+      <>
+        <meta property="og:url" content={canonical} />
+        <meta
+          property="og:image"
+          content={new URL('/social-card.png', Astro.site)}
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta
+          property="og:image:alt"
+          content={`${business.name} — an unofficial website concept by ${brand.agency}`}
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+      </>
+    )}
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(schema).replace(/</g, '\\u003c')}
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+<script>
+  const expireAnnouncements = () =>
+    document
+      .querySelectorAll<HTMLElement>('[data-announcement-end]')
+      .forEach((el) => {
+        el.hidden = Date.parse(el.dataset.announcementEnd!) <= Date.now();
+      });
+  expireAnnouncements();
+  setInterval(expireAnnouncements, 30000);
+  document.addEventListener('visibilitychange', expireAnnouncements);
+</script>

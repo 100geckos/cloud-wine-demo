@@ -1,0 +1,76 @@
+{
+  "name": "Cloud Wine",
+  "locationLabel": "Downtown Asheboro, North Carolina",
+  "address": {
+    "street": "103 N Fayetteville St",
+    "city": "Asheboro",
+    "region": "NC",
+    "country": "US"
+  },
+  "timezone": "America/New_York",
+  "phone": {
+    "display": "(336) 610-0420",
+    "href": "+13366100420",
+    "status": "directory-listed",
+    "source": "https://restaurantguru.com/Cloud-Wine-Asheboro-Asheboro"
+  },
+  "email": null,
+  "hours": [],
+  "hoursNote": "Current hours are being confirmed. Check with Cloud Wine before making a special trip.",
+  "socials": [
+    {
+      "name": "Facebook",
+      "url": "https://www.facebook.com/profile.php?id=61587105779756"
+    }
+  ],
+  "verifiedOn": "2026-11-05",
+  "intro": "A downtown spot for wine, craft beer, cocktails, and small bites. Find Cloud Wine on North Fayetteville Street, right in the heart of Asheboro.",
+  "story": "Cloud Wine brings another place to gather to downtown Asheboro. The downtown business directory lists specialty wine, craft beer, small bites, and both indoor and outdoor seating. Local opening coverage also reports cocktails and a lounge area.",
+  "storyNote": "Business details come from public listings and local reporting. This independent design concept has not been reviewed or approved by the owners.",
+  "offerings": [
+    {
+      "id": "wine",
+      "number": "01",
+      "title": "Wine",
+      "description": "Start with a glass. Explore the selection in person at Cloud Wine.",
+      "detail": "Specialty wine is listed by Downtown Asheboro.",
+      "source": "downtown"
+    },
+    {
+      "id": "cocktails",
+      "number": "02",
+      "title": "Cocktails & craft beer",
+      "description": "A different kind of pour. Discover the bar’s current drinks when you visit.",
+      "detail": "Craft beer is directory-listed; cocktails are reported in local opening coverage.",
+      "source": "opening"
+    },
+    {
+      "id": "bites",
+      "number": "03",
+      "title": "Small bites",
+      "description": "Something alongside your glass. Ask the team about today’s food selection.",
+      "detail": "Small bites are listed by Downtown Asheboro. Current dishes and prices await confirmation.",
+      "source": "downtown"
+    }
+  ],
+  "sources": [
+    {
+      "id": "downtown",
+      "label": "Downtown Asheboro business directory",
+      "url": "https://www.downtownasheboro.com/business-directory",
+      "details": "Confirms business name, street address, wine, craft beer, small bites, indoor/outdoor seating, and links to the Facebook profile."
+    },
+    {
+      "id": "opening",
+      "label": "Randolph Hub · opening coverage, April 13, 2026",
+      "url": "https://randolphhub.com/article/business/cloud-wine-opens-in-downtown-asheboro",
+      "details": "Reports cocktails, lounge seating, and opening on April 10, 2026. Its original hours differ from newer directory hours; neither schedule is presented as current."
+    },
+    {
+      "id": "phone",
+      "label": "Restaurant Guru · public directory listing",
+      "url": "https://restaurantguru.com/Cloud-Wine-Asheboro-Asheboro",
+      "details": "Lists (336) 610-0420. This is directory-listed contact information, pending owner confirmation. No ratings or customer reviews have been reproduced."
+    }
+  ]
+}

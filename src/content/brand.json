@@ -1,0 +1,42 @@
+{
+  "agency": "Piedmont Digital",
+  "demo": true,
+  "colors": {
+    "ivory": "#f6f2e9",
+    "ink": "#282a26",
+    "burgundy": "#581f31",
+    "gold": "#bea779"
+  },
+  "hero": {
+    "eyebrow": "A little above the everyday",
+    "title": "Good wine.",
+    "accent": "Better company.",
+    "description": "Slow down. Settle in. Make a little room for an evening in downtown Asheboro."
+  },
+  "images": [
+    {
+      "id": "wine",
+      "file": "wine.jpg",
+      "alt": "Red wine being poured into stemmed glasses — illustrative stock photography",
+      "caption": "The art of a good pour",
+      "photographer": "Mauro Lima",
+      "source": "https://unsplash.com/photos/Qw_KG1-U1pI"
+    },
+    {
+      "id": "bar",
+      "file": "bar.jpg",
+      "alt": "A warmly lit bar with wooden stools — illustrative stock photography, not Cloud Wine’s interior",
+      "caption": "A mood to linger in",
+      "photographer": "Patrick Tomasso",
+      "source": "https://unsplash.com/photos/GXXYkSwndP4"
+    },
+    {
+      "id": "cocktail",
+      "file": "cocktail.jpg",
+      "alt": "An amber cocktail being poured over ice — illustrative stock photography",
+      "caption": "A different kind of pour",
+      "photographer": "Adam Jaime",
+      "source": "https://unsplash.com/photos/dmkmrNptMpw"
+    }
+  ]
+}

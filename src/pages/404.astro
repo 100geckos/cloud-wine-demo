@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+---
+
+<Layout
+  title="Page not found"
+  description="This page isn’t part of the Cloud Wine concept. Find your way back to the homepage."
+>
+  <PageIntro
+    eyebrow="404 · A little off the beaten path"
+    title="Let’s find"
+    accent="your way back."
+    description="The page you’re looking for isn’t here. There’s still a good evening ahead."
+  />
+  <div class="shell error-actions">
+    <a class="button" href="/">
+      Back to the homepage <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</Layout>

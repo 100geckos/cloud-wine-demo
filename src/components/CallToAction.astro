@@ -1,0 +1,19 @@
+---
+import Icon from './Icon.astro';
+import { directionsUrl } from '../lib/content';
+---
+
+<section class="cta-strip">
+  <div class="shell">
+    <Icon name="star" />
+    <h2>Make an evening of it.</h2>
+    <a
+      class="text-link"
+      href={directionsUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Find Cloud Wine <Icon />
+    </a>
+  </div>
+</section>

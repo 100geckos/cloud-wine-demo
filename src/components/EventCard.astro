@@ -1,0 +1,45 @@
+---
+import type { WineEvent } from '../lib/schemas';
+import { business } from '../lib/content';
+import Icon from './Icon.astro';
+const { event } = Astro.props as { event: WineEvent };
+const date = new Date(event.start);
+const time = new Intl.DateTimeFormat('en-US', {
+  hour: 'numeric',
+  minute: '2-digit',
+  timeZoneName: 'short',
+  timeZone: business.timezone,
+});
+---
+
+<article class="event-card" data-event-end={event.end}>
+  <time datetime={event.start}>
+    <span>
+      {date.toLocaleDateString('en-US', {
+        month: 'short',
+        timeZone: business.timezone,
+      })}
+    </span>
+    <strong>
+      {date.toLocaleDateString('en-US', {
+        day: '2-digit',
+        timeZone: business.timezone,
+      })}
+    </strong>
+  </time>
+  <div>
+    <p class="eyebrow">
+      {time.format(date)} – {time.format(new Date(event.end))}
+    </p>
+    <h3>{event.title}</h3>
+    <p>{event.description}</p>
+    <a
+      class="text-link"
+      href={event.source}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Event details from the source <Icon />
+    </a>
+  </div>
+</article>

@@ -1,0 +1,18 @@
+---
+import Icon from './Icon.astro';
+interface Props {
+  offering: { id: string; number: string; title: string; description: string };
+}
+const { offering } = Astro.props;
+---
+
+<a class="offering-card group" href={`/menu/#${offering.id}`}>
+  <span class="offering-number">
+    {offering.number} <Icon name="star" />
+  </span>
+  <h3>{offering.title}</h3>
+  <p>{offering.description}</p>
+  <span class="offering-link">
+    Take a look <Icon />
+  </span>
+</a>

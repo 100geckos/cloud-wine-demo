@@ -1,0 +1,22 @@
+---
+import { business } from '../lib/content';
+---
+
+<a class="wordmark" href="/" aria-label={`${business.name} home`}>
+  <span class="brand-icon" aria-hidden="true">
+    <svg width="36" height="35" viewBox="0 0 36 35" fill="none">
+      <path
+        d="M8 14c-8 0-8-9-1-9 1-6 10-6 12-1 7-5 15 2 10 8 7 1 7 10-1 10H9c-7 0-8-8-1-8Z"
+        stroke="currentColor"
+      />
+      <path
+        d="M14 10h8l1 6c0 6-10 6-10 0l1-6Zm4 11v9m-4 0h8M13 15h10"
+        stroke="currentColor"
+      />
+    </svg>
+  </span>
+  <span>
+    {business.name}
+    <small>ASHEBORO, NORTH CAROLINA</small>
+  </span>
+</a>

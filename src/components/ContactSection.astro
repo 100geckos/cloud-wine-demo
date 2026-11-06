@@ -1,0 +1,71 @@
+---
+import { business, directionsUrl, socialUrl } from '../lib/content';
+import Icon from './Icon.astro';
+---
+
+<section class="visit-section" aria-labelledby="visit-title">
+  <div class="shell visit-grid">
+    <div>
+      <p class="eyebrow">Meet us downtown</p>
+      <h2 id="visit-title">
+        Your evening,
+        <br />
+        <em>this way.</em>
+      </h2>
+      <p class="visit-address">
+        {business.address.street}
+        <br />
+        {business.address.city}, North Carolina
+      </p>
+      <a
+        class="button"
+        href={directionsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Get directions <Icon />
+      </a>
+    </div>
+    <div class="visit-details">
+      <div>
+        <span class="eyebrow">Before you visit</span>
+        <h3>Make a little time.</h3>
+        {business.hours.length ? (
+          <dl class="hours-list">
+            {business.hours.map((row) => (
+              <div>
+                <dt>{row.day}</dt>
+                <dd>{row.hours}</dd>
+              </div>
+            ))}
+          </dl>
+        ) : (
+          <p>{business.hoursNote}</p>
+        )}
+        {socialUrl && (
+          <a
+            class="text-link"
+            href={socialUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Latest from Cloud Wine <span aria-hidden="true">↗</span>
+          </a>
+        )}
+      </div>
+      {business.phone && (
+        <div class="phone-block">
+          <span class="eyebrow">Get in touch</span>
+          <a class="phone-link" href={`tel:${business.phone.href}`}>
+            {business.phone.display} <Icon name="phone" />
+          </a>
+          {business.phone.status !== 'verified' && (
+            <p class="fine-print">
+              Public directory number · pending owner confirmation
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  </div>
+</section>

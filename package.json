@@ -1,0 +1,41 @@
+{
+  "name": "cloudwine-demo",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev --background",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check",
+    "test": "node --test tests/*.test.mjs",
+    "audit:build": "node scripts/audit-build.mjs",
+    "deploy:check": "wrangler deploy --dry-run --outdir artifacts/worker",
+    "deploy": "npm run check && npm run build && wrangler deploy",
+    "dev:status": "astro dev status",
+    "dev:stop": "astro dev stop",
+    "dev:logs": "astro dev logs",
+    "format": "prettier --write src scripts tests docs README.md astro.config.mjs wrangler.jsonc package.json tsconfig.json"
+  },
+  "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/dm-sans": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.4",
+    "astro": "^7.4.5",
+    "tailwindcss": "^4.3.4",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@types/node": "^26.6.6",
+    "parse5": "^8.1.0",
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^1.1.2",
+    "sharp": "^0.35.5",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.158.0"
+  }
+}

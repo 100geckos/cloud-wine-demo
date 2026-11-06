@@ -1,0 +1,29 @@
+{
+  "note": "A current, owner-confirmed menu isn’t available for this preview. These categories reflect publicly reported offerings; individual drinks, dishes, and prices will be added after confirmation.",
+  "categories": [
+    {
+      "id": "wine",
+      "name": "Wine",
+      "eyebrow": "The wine selection",
+      "description": "Specialty wine is part of Cloud Wine’s publicly listed offering. Ask at the bar about the current selection.",
+      "emptyMessage": "The current wine list is being confirmed.",
+      "items": []
+    },
+    {
+      "id": "cocktails",
+      "name": "Cocktails & beer",
+      "eyebrow": "Beyond the vine",
+      "description": "Craft beer is listed in the downtown directory, and cocktails were reported in opening coverage. Specific selections may change.",
+      "emptyMessage": "The current drinks list is being confirmed.",
+      "items": []
+    },
+    {
+      "id": "bites",
+      "name": "Small bites",
+      "eyebrow": "Something alongside",
+      "description": "The downtown directory lists small bites. Visit Cloud Wine’s social page or contact the bar for today’s food options.",
+      "emptyMessage": "The current food menu is being confirmed.",
+      "items": []
+    }
+  ]
+}

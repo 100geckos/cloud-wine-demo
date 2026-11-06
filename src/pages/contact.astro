@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import ContactSection from '../components/ContactSection.astro';
+import Icon from '../components/Icon.astro';
+import { business, directionsUrl } from '../lib/content';
+---
+
+<Layout
+  title="Visit & contact"
+  description="Find Cloud Wine at 103 N Fayetteville St, Asheboro, NC. Get directions, view its linked Facebook profile, and check directory-listed contact information."
+>
+  <PageIntro
+    eyebrow="Come find us"
+    title="An evening"
+    accent="starts here."
+    description="Right in downtown Asheboro. Bring good company and leave a little room in your plans."
+  />
+  <ContactSection />
+  <section class="shell location-panel">
+    <div class="location-art" aria-hidden="true">
+      <span class="street street-one">N FAYETTEVILLE ST</span>
+      <span class="street street-two">DOWNTOWN ASHEBORO</span>
+      <div class="map-pin">
+        <Icon name="pin" />
+      </div>
+    </div>
+    <div class="location-card">
+      <p class="eyebrow">The address</p>
+      <h2>{business.name}</h2>
+      <p>
+        {business.address.street}
+        <br />
+        {business.address.city}, {business.address.region}
+      </p>
+      <a
+        class="button"
+        href={directionsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Open in Google Maps <Icon />
+      </a>
+      <p class="fine-print">
+        Location artwork is illustrative. Use Google Maps for directions.
+      </p>
+    </div>
+  </section>
+  <section class="shell section-pad narrow-copy">
+    <p class="eyebrow">Connect directly</p>
+    <h2>A real conversation.</h2>
+    <p>
+      This preview has no booking or contact form. For current menus, event
+      details, and hours, contact Cloud Wine directly through the channels
+      listed above.
+    </p>
+    <p class="fine-print">
+      Hours are pending confirmation because public sources disagree. The phone
+      number comes from a third-party directory. No reservations or messages are
+      collected by this demo.
+    </p>
+  </section>
+</Layout>
