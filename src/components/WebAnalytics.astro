@@ -1,0 +1,20 @@
+---
+// Opt in per deployment. The beacon token is public; API credentials never belong here.
+const token = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
+const hostname = import.meta.env.PUBLIC_CF_BEACON_HOST;
+if (token && (!/^[a-f0-9]{32}$/.test(token) || !hostname || !/^[a-z0-9.-]+$/.test(hostname))) {
+  throw new Error('Web Analytics requires a valid public beacon token and hostname.');
+}
+const publicPages = ['/', '/menu/', '/events/', '/about/', '/contact/', '/preview-notes/'];
+const enabled = import.meta.env.PROD && token && publicPages.includes(Astro.url.pathname);
+---
+{enabled && <script is:inline type="module" define:vars={{ token, hostname }}>
+  // Built previews and localhost must not send events to the public demo source.
+  if (location.hostname === hostname) {
+    const beacon = document.createElement('script');
+    beacon.type = 'module';
+    beacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    beacon.dataset.cfBeacon = JSON.stringify({ token });
+    document.body.append(beacon);
+  }
+</script>}
